@@ -1,0 +1,117 @@
+/* static/css/base.css */
+
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+:root {
+    font-size: 62.5%;
+    --primary-color: #4CAF50;
+    --secondary-color: #f5f5f5;
+    --text-color: #333;
+    --link-color: #4CAF50;
+    --button-bg: #4CAF50;
+    --button-hover-bg: #45A049;
+    --header-bg: #f5f5f5;
+    --footer-bg: #333;
+    --font-reg: 1.6rem;
+    --font-l: 1.8rem;
+    --font-xl: 2.4rem;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    background: var(--header-bg);
+    padding: 10px 0;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: var(--font-l);
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: var(--link-color);
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: var(--font-l);
+    color: white;
+    background-color: var(--button-bg);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+footer {
+    background-color: var(--footer-bg);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
+}
+
+/* static/css/base.css */
+
+.header-logo-container {
+    display: flex; /* Centers the image inside the container */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-logo-container img {
+    width: 150px; /* Ensure the width is set */
+    height: auto; /* Keeps the image aspect ratio */
+    max-width: 100%; /* Ensures it doesn't exceed its container's width */
+    display: block; /* Removes any extra space under the image */
+}

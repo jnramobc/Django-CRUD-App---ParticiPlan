@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/volunteers/volunteer-index.css' %}" />
+{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <h1>Volunteer List</h1>
+  <img src="{% static 'images/volunteer-icon.png' %}" alt="Volunteer Icon" class="volunteer-icon" />
+</section>
+
+<section class="card-container">
+  {% for volunteer in volunteers %}
+    <div class="card">
+      <div class="card-content">
+        <h2 class="card-title">{{ volunteer.name }}</h2>
+        <p>Email: {{ volunteer.email }}</p>
+        <p>Role: {{ volunteer.role }}</p>
+        <p>Experience: {{ volunteer.years_of_experience }} years</p>
+        <p>{{ volunteer.bio }}</p>
+        {% if volunteer.available %}
+          <p class="available">Currently Available</p>
+        {% else %}
+          <p class="unavailable">Not Available</p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
