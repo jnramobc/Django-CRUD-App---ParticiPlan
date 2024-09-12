@@ -13,7 +13,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-# views.py
+
 # views.py
 
 class Volunteer:
@@ -61,7 +61,27 @@ volunteers = [
     )
 ]
 
-# views.py
+
+class Event:
+    def __init__(self, title, date, location, description, created_by):
+        self.title = title
+        self.date = date
+        self.location = location
+        self.description = description
+        self.created_by = created_by
+
+# Create a list of Event instances
+events = [
+    Event('Community Cleanup', '2024-09-20', 'Central Park', 'Join us for a day of cleaning up the park.', 'John Doe'),
+    Event('Charity Run', '2024-10-05', 'Riverfront Park', '5K run to raise funds for charity.', 'Jane Smith'),
+    Event('Food Drive', '2024-11-15', 'Local Church', 'Help collect food for those in need.', 'Emily Johnson')
+]
+
+def event_index(request):
+    # Render the events/index.html template with the events data
+    return render(request, 'events/index.html', {'events': events})
+
+
 
 def volunteer_index(request):
     # Render the volunteers/index.html template with the volunteers data
