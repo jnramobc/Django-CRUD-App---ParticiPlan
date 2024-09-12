@@ -21,5 +21,11 @@
   </div>
 </section>
 
+<div class="volunteer-actions">
+  <a href="{% url 'volunteer-update' volunteer.id %}" class="btn warn">Edit</a>
+  <a href="{% url 'volunteer-delete' volunteer.id %}" class="btn danger">Delete</a>
+</div>
+</div>
+
 {% endblock %}
 
