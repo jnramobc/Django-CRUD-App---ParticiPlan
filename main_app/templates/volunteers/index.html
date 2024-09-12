@@ -13,21 +13,25 @@
 <section class="card-container">
   {% for volunteer in volunteers %}
     <div class="card">
-      <div class="card-content">
-        <h2 class="card-title">{{ volunteer.name }}</h2>
-        <p>Email: {{ volunteer.email }}</p>
-        <p>Role: {{ volunteer.role }}</p>
-        <p>Experience: {{ volunteer.years_of_experience }} years</p>
-        <p>{{ volunteer.bio }}</p>
-        {% if volunteer.available %}
-          <p class="available">Currently Available</p>
-        {% else %}
-          <p class="unavailable">Not Available</p>
-        {% endif %}
-      </div>
+      <a href="{% url 'volunteer-detail' volunteer.id %}">
+        <div class="card-content">
+          <h2 class="card-title">{{ volunteer.name }}</h2>
+          <p>Email: {{ volunteer.email }}</p>
+          {% if volunteer.phone_number %}
+            <p>Phone: {{ volunteer.phone_number }}</p>
+          {% endif %}
+          <p>{{ volunteer.bio }}</p>
+          {% if volunteer.availability %}
+            <p class="available">Available {{ volunteer.availability }}</p>
+          {% else %}
+            <p class="unavailable">Availability not provided</p>
+          {% endif %}
+        </div>
+      </a>
     </div>
   {% endfor %}
 </section>
 
 {% endblock %}
+
 

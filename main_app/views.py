@@ -7,6 +7,8 @@ from django.http import HttpResponse
 
 from .models import Event
 
+from .models import Volunteer
+
 # Define the home view function
 def home(request):
     # Send a simple HTML response
@@ -23,9 +25,14 @@ def event_index(request):
 
 
 def volunteer_index(request):
-    # Render the volunteers/index.html template with the volunteers data
+    volunteers = Volunteer.objects.all()
     return render(request, 'volunteers/index.html', {'volunteers': volunteers})
 
 def event_detail(request, event_id):
-    event = Event.objects.get(id=event_id)  # Fetch the specific event by ID
+    event = Event.objects.get(id=event_id)  
     return render(request, 'events/detail.html', {'event': event})
+
+
+def volunteer_detail(request, volunteer_id):
+    volunteer = Volunteer.objects.get(id=volunteer_id)
+    return render(request, 'volunteers/detail.html', {'volunteer': volunteer})

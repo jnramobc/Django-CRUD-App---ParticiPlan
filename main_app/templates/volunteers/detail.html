@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/volunteers/volunteer-detail.css' %}" />
+{% endblock %}
+{% block content %}
+
+<section class="volunteer-container">
+  <div class="volunteer-details">
+    <h1>{{ volunteer.name }}</h1>
+    <h2>Email: {{ volunteer.email }}</h2>
+    {% if volunteer.phone_number %}
+      <p>Phone: {{ volunteer.phone_number }}</p>
+    {% endif %}
+    <p>{{ volunteer.bio }}</p>
+    {% if volunteer.availability %}
+      <p class="available"> Available {{ volunteer.availability }}</p>
+    {% else %}
+      <p class="unavailable">Availability not provided</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
+

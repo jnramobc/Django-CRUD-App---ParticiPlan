@@ -1,0 +1,37 @@
+.volunteer-container {
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .volunteer-details {
+    width: 75%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: var(--card-box-shadow);
+  }
+  
+  .volunteer-details h1, h2 {
+    font-size: var(--font-xl);
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-details p {
+    font-size: var(--font-reg);
+    margin-bottom: 5px;
+  }
+  
+  .available {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .unavailable {
+    color: red;
+    font-weight: bold;
+  }
+  
