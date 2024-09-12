@@ -8,4 +8,51 @@
   <p>{{ event.description }}</p>
 </section>
 
+<div class="event-actions">
+  <a href="{% url 'event-update' event.id %}" class="btn warn">Edit</a>
+  <a href="{% url 'event-delete' event.id %}" class="btn danger">Delete</a>
+</div>
+
+<div class="participation-container">
+  <h2>Participation</h2>
+  {% if event.participation_set.all.count %}
+    <table>
+      <table>
+        <thead>
+          <tr>
+            <th>Volunteer</th>
+            <th>Status</th>
+            <th>Actions</th> <!-- New column for actions like delete -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for participation in event.participation_set.all %}
+            <tr>
+              <td>{{ participation.volunteer.name }}</td>
+              <td>{{ participation.status }}</td>
+              <td>
+                <!-- Add a delete form for each participation -->
+                <form action="{% url 'delete-participation' participation.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  {% else %}
+    <p>No participation records yet.</p>
+  {% endif %}
+</div>
+
+
+<h3>Add Participation</h3>
+<form action="{% url 'add-participation' event.id %}" method="post">
+  {% csrf_token %}
+  {{ participation_form.as_p }}
+  <button type="submit" class="btn">Add Participation</button>
+</form>
+
+
 {% endblock %}

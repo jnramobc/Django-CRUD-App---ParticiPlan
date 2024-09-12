@@ -1,5 +1,12 @@
 from django.db import models
 
+PARTICIPATION_STATUS = (
+    ('C', 'Confirmed'),
+    ('P', 'Pending'),
+    ('D', 'Declined'),
+)
+
+
 # User Model
 class User(models.Model):
     username = models.CharField(max_length=150, unique=True)
@@ -31,5 +38,20 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+# Participation model
+class Participation(models.Model):
+    volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=1,
+        choices=PARTICIPATION_STATUS,
+        default=PARTICIPATION_STATUS[1][0]
+    )
+    date_participated = models.DateField()
 
+    def __str__(self):
+        return f"{self.get_status_display()} by {self.volunteer.name} for {self.event.title}"
+
+    class Meta:
+        ordering = ['-date_participated']
 

@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views # Import views to connect routes to view functions
 from .views import VolunteerCreate, VolunteerUpdate, VolunteerDelete, VolunteerDetail
-
+from .views import EventDetail, EventCreate, EventUpdate, EventDelete
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -12,5 +12,10 @@ urlpatterns = [
     path('volunteers/<int:pk>/update/', VolunteerUpdate.as_view(), name='volunteer-update'),
     path('volunteers/<int:pk>/delete/', VolunteerDelete.as_view(), name='volunteer-delete'),
     path('events/', views.event_index, name='event-index'),
-    path('events/<int:event_id>/', views.event_detail, name='event-detail'),
+    path('events/<int:pk>/', EventDetail.as_view(), name='event-detail'),
+    path('events/create/', EventCreate.as_view(), name='event-create'),
+    path('events/<int:pk>/update/', EventUpdate.as_view(), name='event-update'),
+    path('events/<int:pk>/delete/', EventDelete.as_view(), name='event-delete'),
+    path('events/<int:event_id>/add-participation/', views.add_participation, name='add-participation'),
+    path('participation/<int:participation_id>/delete/', views.delete_participation, name='delete-participation'),
 ]
