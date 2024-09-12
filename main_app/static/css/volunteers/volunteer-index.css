@@ -39,15 +39,6 @@
     color: var(--text-color);
   }
 
-  .available {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .unavailable {
-    color: red;
-    font-weight: bold;
-  }
   
   .volunteer-icon {
     width: 100px; 
