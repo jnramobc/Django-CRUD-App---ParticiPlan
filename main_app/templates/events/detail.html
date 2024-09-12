@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="event-details">
+  <h1>{{ event.title }}</h1>
+  <p>Date: {{ event.date }}</p>
+  <p>Location: {{ event.location }}</p>
+  <p>{{ event.description }}</p>
+</section>
+
+{% endblock %}

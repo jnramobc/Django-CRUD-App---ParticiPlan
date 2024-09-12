@@ -11,17 +11,17 @@
 </section>
 
 <section class="card-container">
-  {% for event in events %}
-    <div class="card">
-      <div class="card-content">
-        <h2 class="card-title">{{ event.title }}</h2>
-        <p>Date: {{ event.date }}</p>
-        <p>Location: {{ event.location }}</p>
-        <p>{{ event.description }}</p>
-        <p>Created by: {{ event.created_by }}</p>
+    {% for event in events %}
+      <div class="card">
+        <a href="{% url 'event-detail' event.id %}">
+          <div class="card-content">
+            <h2 class="card-title">{{ event.title }}</h2>
+            <p>{{ event.date }} at {{ event.location }}</p>
+            <p>{{ event.description }}</p>
+          </div>
+        </a>
       </div>
-    </div>
-  {% endfor %}
-</section>
+    {% endfor %}
+  </section>
 
 {% endblock %}
