@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 PARTICIPATION_STATUS = (
@@ -33,7 +34,7 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

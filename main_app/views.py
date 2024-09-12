@@ -1,4 +1,9 @@
 # main_app/views.py
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from django.shortcuts import render
 
@@ -21,6 +26,23 @@ from .forms import ParticipationForm
 from django.urls import reverse_lazy
 
 
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('event-index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    else:
+        form = UserCreationForm()
+    
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)
+
+
 # Define the home view function
 def home(request):
     # Send a simple HTML response
@@ -29,16 +51,17 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
+@login_required
 def event_index(request):
     events = Event.objects.all() 
     return render(request, 'events/index.html', {'events': events})
 
-
+@login_required
 def volunteer_index(request):
     volunteers = Volunteer.objects.all()
     return render(request, 'volunteers/index.html', {'volunteers': volunteers})
 
+@login_required
 def add_participation(request, event_id):
     # Find the event the participation is being added to
     event = Event.objects.get(id=event_id)
@@ -62,6 +85,7 @@ def add_participation(request, event_id):
     # If the form is not valid, redirect back to the event detail page
     return redirect('event-detail', pk=event_id)
 
+@login_required
 def delete_participation(request, participation_id):
     # Get the participation object or return a 404 if not found
     participation = get_object_or_404(Participation, id=participation_id)
@@ -76,32 +100,32 @@ def delete_participation(request, participation_id):
     return redirect('event-detail', pk=event_id)
 
 # Volunteer Create View
-class VolunteerCreate(CreateView):
+class VolunteerCreate(LoginRequiredMixin, CreateView):
     model = Volunteer
     fields = ['name', 'email', 'phone_number', 'availability']
     template_name = 'volunteers/volunteer_form.html'
     success_url = reverse_lazy('volunteer-index')
 
 # Volunteer Detail View
-class VolunteerDetail(DetailView):
+class VolunteerDetail(LoginRequiredMixin, DetailView):
     model = Volunteer
     template_name = 'volunteers/detail.html'
 
 # Volunteer Update View
-class VolunteerUpdate(UpdateView):
+class VolunteerUpdate(LoginRequiredMixin, UpdateView):
     model = Volunteer
     fields = ['name', 'email', 'phone_number', 'availability']
     template_name = 'volunteers/volunteer_form.html'
     success_url = reverse_lazy('volunteer-index')
 
 # Volunteer Delete View
-class VolunteerDelete(DeleteView):
+class VolunteerDelete(LoginRequiredMixin, DeleteView):
     model = Volunteer
     template_name = 'volunteers/volunteer_confirm_delete.html'
     success_url = reverse_lazy('volunteer-index')
 
 # Event Detail View with Participation Form
-class EventDetail(DetailView):
+class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
     template_name = 'events/detail.html'
 
@@ -116,21 +140,21 @@ class EventDetail(DetailView):
         return context
 
 # Event Create View
-class EventCreate(CreateView):
+class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     fields = '__all__'  
     template_name = 'events/event_form.html'  
     success_url = '/events/'  
 
 # Event Update View
-class EventUpdate(UpdateView):
+class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = '__all__'
     template_name = 'events/event_form.html'  
     success_url = '/events/'  
 
 # Event Delete View
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
     template_name = 'events/event_confirm_delete.html'  # Confirm delete template
     success_url = '/events/'  

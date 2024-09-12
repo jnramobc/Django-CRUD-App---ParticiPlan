@@ -21,11 +21,28 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
-          <li><a href="/volunteers">All Volunteers</a></li>
-          <li><a href="{% url 'volunteer-create' %}">Add a Volunteer</a></li>
+          <li><a href="{% url 'volunteer-index' %}">All Volunteers</a></li> <!-- Added back All Volunteers link -->
           <li><a href="{% url 'event-index' %}">All Events</a></li>
-          <li><a href="{% url 'event-create' %}">Add an Event</a></li>
-
+      
+          <!-- Check if the user is logged in -->
+          {% if user.is_authenticated %}
+            <!-- Show these links for logged-in users -->
+            <li><a href="{% url 'event-create' %}">Add an Event</a></li>
+            <li><a href="{% url 'volunteer-create' %}">Add a Volunteer</a></li>
+            
+      
+            <!-- Logout Form (POST request for security) -->
+            <li>
+              <form id="logout-form" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" style="background-color: #d9534f; border:none; color:white; font-size:16px; padding: 5px 10px; border-radius: 5px; cursor:pointer;">Log out</button>
+              </form>
+            </li>
+          {% else %}
+            <!-- Show these links for anonymous users -->
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
@@ -38,3 +55,4 @@
     </footer>
   </body>
 </html>
+
